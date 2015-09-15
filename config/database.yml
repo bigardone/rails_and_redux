@@ -1,0 +1,15 @@
+default: &default
+  adapter: postgresql
+  host: localhost
+
+development:
+  <<: *default
+  database: rails_and_redux_development
+
+test:
+  <<: *default
+  database: rails_and_redux_test
+
+production:
+  <<: *default
+  database: rails_and_redux_production

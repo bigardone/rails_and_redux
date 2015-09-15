@@ -1,0 +1,78 @@
+// Typography
+$sans-serif: $helvetica;
+$serif: $georgia;
+$base-font-family: 'Average Sans', sans-serif;
+$header-font-family: 'Fjalla One', sans-serif;
+
+// Sizes
+$base-font-size: 1em;
+$base-line-height: $base-font-size * 1.5;
+$unitless-line-height: $base-line-height / ($base-line-height * 0 + 1); // Strip units from line-height: https://developer.mozilla.org/en-US/docs/Web/CSS/line-height#Prefer_unitless_numbers_for_line-height_values
+$header-line-height: $base-font-size * 1.25;
+$base-border-radius: 4px;
+
+// Colors
+$blue: #3498db;
+$green: #2ecc71;
+$red: #e74c3c;
+$yellow: #f1c40f;
+$orange: #e67e22;
+$purple: #9b59b6;
+$gray: #bdc3c7;
+$asphalt: #34495e;
+$pink: #ff5aec;
+
+$dark-blue: darken($blue, 15);
+$dark-purple: darken($purple, 15);
+$light-gray: lighten($gray, 15);
+$lighter-gray: lighten($gray, 20);
+$medium-gray: darken($gray, 10);
+$dark-gray: darken($gray, 40);
+$light-red: lighten($red, 15);
+$light-yellow: lighten($yellow, 15);
+$light-green: lighten($green, 15);
+$dark-asphalt: darken($asphalt, 7);
+$light-blue: lighten($blue, 20);
+$dark-orange: darken($orange, 15);
+$dark-red: darken($red, 15);
+$light-pink: lighten($pink, 31);
+
+// Background Color
+$base-background-color: white;
+
+// Font Colors
+$base-font-color: darken($gray,20);
+$base-accent-color: $blue;
+
+// Link Colors
+$base-link-color: $base-accent-color;
+$hover-link-color: darken($base-accent-color, 15);
+$base-button-color: $base-link-color;
+$hover-button-color: $hover-link-color;
+
+// Border color
+$base-border-color: transparent;
+
+// Flash Colors
+$alert-color: $light-yellow;
+$error-color: $light-red;
+$notice-color: $light-yellow;
+$success-color: $light-green;
+
+// Forms
+$form-border-color: $base-border-color;
+$form-border-color-hover: darken($base-border-color, 10);
+$form-border-color-focus: $base-border-color;
+$form-border-radius: $base-border-radius;
+$form-box-shadow: 0 0 0;
+$form-box-shadow-focus: $form-box-shadow, 0 0 5px rgba(darken($form-border-color-focus, 5), 0.7);
+$form-font-size: $base-font-size;
+$form-font-family: $base-font-family;
+
+// Nprogress bar
+$nprogress-color: $blue;
+
+// Breakpoints
+$mobile: new-breakpoint(max-width 480px);
+$tablet: new-breakpoint(min-width 481px max-width 768px);
+$desktop: new-breakpoint(min-width 769px);
