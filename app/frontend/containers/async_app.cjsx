@@ -1,6 +1,6 @@
 { connect } = require 'react-redux'
 actions = require '../actions'
-PeopleSection = require '../components/people/section'
+PeopleList = require '../components/people/list'
 
 AsyncApp = React.createClass
   displayName: 'AsyncApp'
@@ -15,7 +15,7 @@ AsyncApp = React.createClass
     { dispatch } = @props
 
     (
-      <PeopleSection people={items} meta={meta} dispatch={dispatch} search={search} />
+      <PeopleList people={items} meta={meta} dispatch={dispatch} search={search} />
     )
 
 mapStateToProps = (state)->
