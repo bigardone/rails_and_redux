@@ -16,6 +16,8 @@ Person = React.createClass
     moment(@props.person.birth_date).format('D MMM YYYY')
 
   render: ->
+    return false if @props.isLoading
+
     cardClasses = classnames
       'person-detail': true
       female: @props.person.gender == 'female'
@@ -47,7 +49,10 @@ Person = React.createClass
       </div>
     </div>
 
+
+
 mapStateToProps = (state) ->
   person: state.person.person
+  isLoading: state.person.isLoading
 
 module.exports = connect(mapStateToProps)(Person)

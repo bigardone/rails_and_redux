@@ -9,10 +9,9 @@ List = React.createClass
   displayName: 'PeopleSection'
 
   componentDidMount: ->
-    { dispatch } = @props
-    dispatch actions.fetchPeople()
+    @_fetchPeople()
 
-  _handlePageNumberClicked: (pageNumber)->
+  _fetchPeople: (pageNumber = @props.pageNumber)->
     { dispatch, search } = @props
     dispatch actions.fetchPeople({search: search, page: pageNumber})
 
@@ -34,11 +33,13 @@ List = React.createClass
     </div>
 
   render: ->
+    return false unless @props.people?
+
     { dispatch, search } = @props
 
     <div>
       <PeopleSearch totalCount={@props.meta.total_count} value={search} dispatch={dispatch} />
-      <PaginatorSection totalPages={@props.meta.total_pages} currentPage={@props.meta.current_page} pageNumberClicked={@_handlePageNumberClicked}/>
+      <PaginatorSection totalPages={@props.meta.total_pages} currentPage={@props.meta.current_page} pageNumberClicked={@_fetchPeople}/>
 
       <div className="cards-wrapper">
         {@_renderPeople()}
@@ -51,6 +52,7 @@ mapStateToProps = (state) ->
   people: state.people.items
   meta: state.people.meta
   search: state.search.search
+  pageNumber: state.search.pageNumber
 
 module.exports = connect(mapStateToProps)(List)
 

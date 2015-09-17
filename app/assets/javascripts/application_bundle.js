@@ -364,12 +364,13 @@
 	List = React.createClass({
 	  displayName: 'PeopleSection',
 	  componentDidMount: function() {
-	    var dispatch;
-	    dispatch = this.props.dispatch;
-	    return dispatch(actions.fetchPeople());
+	    return this._fetchPeople();
 	  },
-	  _handlePageNumberClicked: function(pageNumber) {
+	  _fetchPeople: function(pageNumber) {
 	    var dispatch, ref, search;
+	    if (pageNumber == null) {
+	      pageNumber = this.props.pageNumber;
+	    }
 	    ref = this.props, dispatch = ref.dispatch, search = ref.search;
 	    return dispatch(actions.fetchPeople({
 	      search: search,
@@ -403,6 +404,9 @@
 	  },
 	  render: function() {
 	    var dispatch, ref, search;
+	    if (this.props.people == null) {
+	      return false;
+	    }
 	    ref = this.props, dispatch = ref.dispatch, search = ref.search;
 	    return React.createElement("div", null, React.createElement(PeopleSearch, {
 	      "totalCount": this.props.meta.total_count,
@@ -411,7 +415,7 @@
 	    }), React.createElement(PaginatorSection, {
 	      "totalPages": this.props.meta.total_pages,
 	      "currentPage": this.props.meta.current_page,
-	      "pageNumberClicked": this._handlePageNumberClicked
+	      "pageNumberClicked": this._fetchPeople
 	    }), React.createElement("div", {
 	      "className": "cards-wrapper"
 	    }, this._renderPeople()), React.createElement(PaginatorSection, {
@@ -426,7 +430,8 @@
 	  return {
 	    people: state.people.items,
 	    meta: state.people.meta,
-	    search: state.search.search
+	    search: state.search.search,
+	    pageNumber: state.search.pageNumber
 	  };
 	};
 
@@ -462,6 +467,9 @@
 	  },
 	  render: function() {
 	    var cardClasses;
+	    if (this.props.isLoading) {
+	      return false;
+	    }
 	    cardClasses = classnames({
 	      'person-detail': true,
 	      female: this.props.person.gender === 'female',
@@ -496,7 +504,8 @@
 
 	mapStateToProps = function(state) {
 	  return {
-	    person: state.person.person
+	    person: state.person.person,
+	    isLoading: state.person.isLoading
 	  };
 	};
 
@@ -615,10 +624,11 @@
 	actions = __webpack_require__(23);
 
 	initialState = {
-	  items: [],
+	  items: null,
 	  meta: {},
 	  search: '',
-	  person: {}
+	  person: {},
+	  isLoading: false
 	};
 
 	people = function(state, action) {
@@ -629,7 +639,8 @@
 	    case actions.RECEIVE_PEOPLE:
 	      return {
 	        items: action.people,
-	        meta: action.meta
+	        meta: action.meta,
+	        isLoading: false
 	      };
 	    default:
 	      return state;
@@ -643,7 +654,8 @@
 	  switch (action.type) {
 	    case actions.REQUEST_PEOPLE:
 	      return {
-	        search: action.search
+	        search: action.search,
+	        pageNumber: action.pageNumber
 	      };
 	    default:
 	      return state;
@@ -655,9 +667,14 @@
 	    state = initialState;
 	  }
 	  switch (action.type) {
+	    case actions.REQUEST_PERSON:
+	      return {
+	        isLoading: true
+	      };
 	    case actions.RECEIVE_PERSON:
 	      return {
-	        person: action.person
+	        person: action.person,
+	        isLoading: false
 	      };
 	    default:
 	      return state;
@@ -1213,6 +1230,7 @@
 	module.exports = {
 	  REQUEST_PEOPLE: 'REQUEST_PEOPLE',
 	  RECEIVE_PEOPLE: 'RECEIVE_PEOPLE',
+	  REQUEST_PERSON: 'REQUEST_PERSON',
 	  RECEIVE_PERSON: 'RECEIVE_PERSON',
 	  requestPeople: function(params) {
 	    return {
@@ -1243,9 +1261,15 @@
 	      meta: json.meta
 	    };
 	  },
+	  requestPerson: function() {
+	    return {
+	      type: this.REQUEST_PERSON
+	    };
+	  },
 	  loadPerson: function(id) {
 	    return (function(_this) {
 	      return function(dispatch) {
+	        dispatch(_this.requestPerson());
 	        return fetch(Routes.api_v1_person_path(id)).then(function(req) {
 	          return req.json();
 	        }).then(function(json) {
