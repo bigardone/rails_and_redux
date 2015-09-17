@@ -17,16 +17,15 @@ class Api::V1::PeopleController < ApplicationController
   def show
     person = Person.find params[:id]
 
-    render json: person
+    render json: person, root: 'person'
   end
 
   private
 
   def search_people
-    @people =  if params[:search].present?
-      Person.search(params[:search])
-    else
-      Person.all
-    end.sorted.page(params[:page])
+    @people =  Person.sorted
+    @people = @people.search(params[:search]) unless params[:search].blank?
+    @people = @people.page(params[:page])
+    @people
   end
 end
