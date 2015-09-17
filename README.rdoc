@@ -1,11 +1,11 @@
-== Rails and Flux: A real use case
+== Rails and Redux: A real use case
 
 This is a real use case application using:
 
-* Rails 4.2.0 beta.
+* Rails 4.2.0.
 * Webpack for managing JavaScript modules.
 * React.js.
-* Marty.js as Flux implementation.
+* Redux as Flux implementation.
 * PostgreSQL full-text search.
 
 To install it, just clone it and run:
