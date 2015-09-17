@@ -2,10 +2,15 @@ PeopleSearch = require './search'
 PersonCard = require './card'
 PaginatorSection = require '../paginator/paginator_section'
 ResetButton = require '../buttons/reset_button'
+{ connect } = require 'react-redux'
 actions = require '../../actions'
 
-module.exports = React.createClass
+List = React.createClass
   displayName: 'PeopleSection'
+
+  componentDidMount: ->
+    { dispatch } = @props
+    dispatch actions.fetchPeople()
 
   _handlePageNumberClicked: (pageNumber)->
     { dispatch, search } = @props
@@ -33,7 +38,6 @@ module.exports = React.createClass
 
     <div>
       <PeopleSearch totalCount={@props.meta.total_count} value={search} dispatch={dispatch} />
-
       <PaginatorSection totalPages={@props.meta.total_pages} currentPage={@props.meta.current_page} pageNumberClicked={@_handlePageNumberClicked}/>
 
       <div className="cards-wrapper">
@@ -42,3 +46,11 @@ module.exports = React.createClass
 
       <PaginatorSection totalPages={@props.meta.total_pages} currentPage={@props.meta.current_page} pageNumberClicked={@_handlePageNumberClicked}/>
     </div>
+
+mapStateToProps = (state) ->
+  people: state.people.items
+  meta: state.people.meta
+  search: state.search.search
+
+module.exports = connect(mapStateToProps)(List)
+

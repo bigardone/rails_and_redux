@@ -1,37 +1,31 @@
 actions = require '../../actions'
 ResetButton = require '../buttons/reset_button'
-findDOMNode = React.findDOMNode
+ReactDOM = require 'react-dom'
 
 module.exports = React.createClass
   displayName: 'PeopleSearch'
 
   mixins: [
-    React.addons.LinkedStateMixin
+    require 'react-addons-linked-state-mixin'
   ]
 
   getInitialState: ->
     searchLength: 0
     value: ''
 
-  componentDidMount: ->
-    @_subscribeToEvents()
-
   componentWillReceiveProps: (nextProps) ->
     @setState
       value: nextProps.value
       searchLength: if nextProps.value then nextProps.value.length else 0
 
-  _subscribeToEvents: ->
-    $(@refs.search.getDOMNode()).on 'keyup', @_handleSearchOnKeyup
-
   _handleOnSubmit: (e) ->
     e.preventDefault()
     { dispatch } = @props
-    dispatch actions.fetchPeople(search: findDOMNode(@refs.search).value.trim())
+    dispatch actions.fetchPeople(search: @refs.search.value.trim())
 
   _handleSearchOnKeyup: (e) ->
     @setState
-      searchLength: findDOMNode(@refs.search).value.length
+      searchLength: @refs.search.value.length
 
   _personText: (count) ->
     if count > 1 then 'people' else 'person'
@@ -55,7 +49,7 @@ module.exports = React.createClass
       <div className="form-wrapper">
         <form onSubmit={@_handleOnSubmit}>
           {@_renderResetButton()}
-          <input ref="search" placeholder="Search people..." type="search" valueLink={@linkState('value')} />
+          <input ref="search" placeholder="Search people..." type="search" onKeyUp={@_handleSearchOnKeyup} valueLink={@linkState('value')}/>
         </form>
       </div>
     </div>

@@ -3,6 +3,7 @@ fetch = require 'isomorphic-fetch'
 module.exports =
   REQUEST_PEOPLE: 'REQUEST_PEOPLE'
   RECEIVE_PEOPLE: 'RECEIVE_PEOPLE'
+  RECEIVE_PERSON: 'RECEIVE_PERSON'
 
   requestPeople: (params) ->
     type: @REQUEST_PEOPLE
@@ -23,4 +24,15 @@ module.exports =
     people: json.people
     meta: json.meta
 
+  loadPerson: (id) ->
+    (dispatch) =>
+      fetch(Routes.api_v1_person_path(id))
+      .then (req) =>
+        req.json()
+      .then (json) =>
+        dispatch @receivePerson(json)
+
+  receivePerson: (json) ->
+    type: @RECEIVE_PERSON
+    person: json.person
 

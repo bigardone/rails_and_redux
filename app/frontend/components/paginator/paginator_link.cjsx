@@ -1,6 +1,5 @@
 module.exports = React.createClass
   displayName: 'PaginatorLink'
-  mixins: [React.addons.PureRenderMixin]
 
   _handleOnClick: (e) ->
     e.preventDefault()

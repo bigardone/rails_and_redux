@@ -7,6 +7,7 @@ initialState =
   items: []
   meta: {}
   search: ''
+  person: {}
 
 people = (state = initialState, action) ->
   switch action.type
@@ -22,6 +23,14 @@ search = (state = initialState, action) ->
     else
       state
 
+person = (state = initialState, action) ->
+  switch action.type
+    when actions.RECEIVE_PERSON
+      person: action.person
+    else
+      state
+
 module.exports = combineReducers
   people: people
   search: search
+  person: person

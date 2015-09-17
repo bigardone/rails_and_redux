@@ -1,4 +1,9 @@
+ReactDOM = require 'react-dom'
 Root = require './containers/root'
+configureStore = require './store/configure_store'
+createBrowserHistory = require 'history/lib/createBrowserHistory'
 
 window.onload = ->
-  React.render <Root />, document.getElementById 'people_list'
+  store = configureStore()
+
+  ReactDOM.render <Root routerHistory={createBrowserHistory()} store={store}} />, document.getElementById 'people_list'

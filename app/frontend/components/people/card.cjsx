@@ -1,10 +1,9 @@
 classnames = require 'classnames'
 moment = require 'moment'
-Link = require('react-router').Link
+{ Link } = require('react-router')
 
 module.exports = React.createClass
   displayName: 'PersonCard'
-  mixins: [React.addons.PureRenderMixin]
 
   _birthDate: ->
     moment(@props.birth_date).format('D MMM YYYY')
@@ -19,7 +18,9 @@ module.exports = React.createClass
       <header>
         <div className="avatar-wrapper">
           &nbsp;
-          <img className="avatar" src={@props.picture} />
+          <Link to={"/people/#{@props.id}"}>
+            <img className="avatar" src={@props.picture} />
+          </Link>
         </div>
         <div className="info-wrapper">
           <h4>{@props.first_name} {@props.last_name}</h4>
