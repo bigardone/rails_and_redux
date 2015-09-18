@@ -7,12 +7,16 @@ $size: em(14)
   li
     display: inline-block
     a, span
-      background: $blue
+      +transition
+      background: $base-accent-color
       margin-left: $size/2
       display: inline-block
       border-radius: 50%
       width: $size
       height: $size
+
+    a:hover
+      background: darken($base-accent-color, 10)
 
     span
       background: $gray

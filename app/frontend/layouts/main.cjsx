@@ -4,7 +4,7 @@ module.exports = React.createClass
   render: ->
     <section>
       <header>
-        <h1>Rails and Flux: A real use case</h1>
+        <h1>Rails and Redux: A real use case</h1>
       </header>
       {@props.children}
     </section>

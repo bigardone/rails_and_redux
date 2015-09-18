@@ -38,11 +38,11 @@ $dark-red: darken($red, 15);
 $light-pink: lighten($pink, 31);
 
 // Background Color
-$base-background-color: white;
+$base-background-color: $dark-gray;
 
 // Font Colors
-$base-font-color: darken($gray,20);
-$base-accent-color: $blue;
+$base-font-color: $light-gray;
+$base-accent-color: $light-blue;
 
 // Link Colors
 $base-link-color: $base-accent-color;

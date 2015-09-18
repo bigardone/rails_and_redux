@@ -4,6 +4,8 @@
   border-radius: $base-border-radius
   width: 80%
   margin: 3em auto
+  color: $base-background-color
+
 
   header
     +pad(1rem)
@@ -28,7 +30,6 @@
 
   .meta
     font-size: .9em
-    color: darken(#fff, 10)
     li
       overflow: hidden
       text-overflow: ellipsis
@@ -42,15 +43,23 @@
     margin-bottom: 2rem
 
   .contact-info
+    +clearfix
     margin: -1rem
     padding: 1rem
     background: lighten($gray, 10)
     border-radius: 0 0 $base-border-radius $base-border-radius
 
+    li
+      +span-columns(6)
+      text-align: center
+      font-size: 1.4em
+
 
     .fa
-      margin-right: 1em
-      color: #fff
+      opacity: .2
+      font-size: 1.5em
+      display: block
+      line-height: 1.5em
 
 
   &.female

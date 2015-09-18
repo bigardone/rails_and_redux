@@ -39697,7 +39697,7 @@
 	/* WEBPACK VAR INJECTION */(function(React) {module.exports = React.createClass({
 	  displayName: 'MainLayout',
 	  render: function() {
-	    return React.createElement("section", null, React.createElement("header", null, React.createElement("h1", null, "Rails and Flux: A real use case")), this.props.children);
+	    return React.createElement("section", null, React.createElement("header", null, React.createElement("h1", null, "Rails and Redux: A real use case")), this.props.children);
 	  }
 	});
 
