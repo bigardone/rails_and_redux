@@ -21,7 +21,7 @@ module.exports = React.createClass
   _handleOnSubmit: (e) ->
     e.preventDefault()
     { dispatch } = @props
-    dispatch actions.fetchPeople(search: @refs.search.value.trim())
+    dispatch actions.people.fetchPeople(search: @refs.search.value.trim())
 
   _handleSearchOnKeyup: (e) ->
     @setState

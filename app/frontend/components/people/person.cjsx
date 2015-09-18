@@ -10,7 +10,7 @@ Person = React.createClass
 
   componentDidMount: ->
     { dispatch, params } = @props
-    dispatch actions.loadPerson params.id
+    dispatch actions.person.loadPerson params.id
 
   _birthDate: ->
     moment(@props.person.birth_date).format('D MMM YYYY')
@@ -52,7 +52,7 @@ Person = React.createClass
 
 
 mapStateToProps = (state) ->
-  person: state.person.person
+  person: state.person
   isLoading: state.person.isLoading
 
 module.exports = connect(mapStateToProps)(Person)

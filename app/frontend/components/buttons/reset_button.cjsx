@@ -7,7 +7,7 @@ module.exports = React.createClass
     e.preventDefault()
 
     { dispatch } = @props
-    dispatch actions.fetchPeople(search: '')
+    dispatch actions.people.fetchPeople(search: '')
 
   render: ->
     <a className={@props.styleClass} href="#" onClick={@_handleOnClick}>{@props.text}</a>

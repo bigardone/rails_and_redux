@@ -13,7 +13,7 @@ List = React.createClass
 
   _fetchPeople: (pageNumber = @props.pageNumber)->
     { dispatch, search } = @props
-    dispatch actions.fetchPeople({search: search, page: pageNumber})
+    dispatch actions.people.fetchPeople({search: search, page: pageNumber})
 
   _renderPeople: ->
     if @props.people.length is 0 then return @_renderNoResultsFound()
