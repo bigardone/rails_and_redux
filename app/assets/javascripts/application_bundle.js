@@ -60,7 +60,7 @@
 	  return ReactDOM.render(React.createElement(Root, {
 	    "routerHistory": createBrowserHistory(),
 	    "store": store
-	  }), document.getElementById('people_list'));
+	  }), document.getElementById('main_wrapper'));
 	};
 
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
@@ -69,19 +69,15 @@
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(React) {var AsyncApp, PeopleList, Person, Provider, Route, Router, RoutingContext, configureStore, ref;
+	/* WEBPACK VAR INJECTION */(function(React) {var Provider, Router, RoutingContext, configureStore, ref, routes;
 
 	Provider = __webpack_require__(18).Provider;
 
 	configureStore = __webpack_require__(2);
 
-	ref = __webpack_require__(19), Router = ref.Router, RoutingContext = ref.RoutingContext, Route = ref.Route;
+	ref = __webpack_require__(19), Router = ref.Router, RoutingContext = ref.RoutingContext;
 
-	AsyncApp = __webpack_require__(6);
-
-	PeopleList = __webpack_require__(7);
-
-	Person = __webpack_require__(8);
+	routes = __webpack_require__(383);
 
 	module.exports = React.createClass({
 	  displayName: 'Root',
@@ -91,15 +87,7 @@
 	    } else {
 	      return React.createElement(Router, {
 	        "history": this.props.routerHistory
-	      }, React.createElement(Route, {
-	        "name": "root",
-	        "path": "/",
-	        "component": PeopleList
-	      }), React.createElement(Route, {
-	        "name": "person",
-	        "path": "people/:id",
-	        "component": Person
-	      }));
+	      }, routes);
 	    }
 	  },
 	  render: function() {
@@ -300,50 +288,7 @@
 
 
 /***/ },
-/* 6 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(React) {var AsyncApp, PeopleList, actions, connect, mapStateToProps;
-
-	connect = __webpack_require__(18).connect;
-
-	actions = __webpack_require__(23);
-
-	PeopleList = __webpack_require__(7);
-
-	AsyncApp = React.createClass({
-	  displayName: 'AsyncApp',
-	  componentDidMount: function() {
-	    var dispatch;
-	    dispatch = this.props.dispatch;
-	    return dispatch(actions.fetchPeople());
-	  },
-	  render: function() {
-	    var dispatch, items, meta, ref, search;
-	    ref = this.props.people, items = ref.items, meta = ref.meta;
-	    search = this.props.search.search;
-	    dispatch = this.props.dispatch;
-	    return React.createElement(PeopleList, {
-	      "people": items,
-	      "meta": meta,
-	      "dispatch": dispatch,
-	      "search": search
-	    });
-	  }
-	});
-
-	mapStateToProps = function(state) {
-	  return {
-	    people: state.people,
-	    search: state.search
-	  };
-	};
-
-	module.exports = connect(mapStateToProps)(AsyncApp);
-
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
-
-/***/ },
+/* 6 */,
 /* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -421,7 +366,7 @@
 	    }, this._renderPeople()), React.createElement(PaginatorSection, {
 	      "totalPages": this.props.meta.total_pages,
 	      "currentPage": this.props.meta.current_page,
-	      "pageNumberClicked": this._handlePageNumberClicked
+	      "pageNumberClicked": this._fetchPeople
 	    }));
 	  }
 	});
@@ -39744,6 +39689,47 @@
 
 	module.exports = toObject;
 
+
+/***/ },
+/* 382 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(React) {module.exports = React.createClass({
+	  displayName: 'MainLayout',
+	  render: function() {
+	    return React.createElement("section", null, React.createElement("header", null, React.createElement("h1", null, "Rails and Flux: A real use case")), this.props.children);
+	  }
+	});
+
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
+
+/***/ },
+/* 383 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(React) {var MainLayout, PeopleList, Person, Route;
+
+	MainLayout = __webpack_require__(382);
+
+	Route = __webpack_require__(19).Route;
+
+	PeopleList = __webpack_require__(7);
+
+	Person = __webpack_require__(8);
+
+	module.exports = React.createElement(Route, {
+	  "component": MainLayout
+	}, React.createElement(Route, {
+	  "name": "root",
+	  "path": "/",
+	  "component": PeopleList
+	}), React.createElement(Route, {
+	  "name": "person",
+	  "path": "people/:id",
+	  "component": Person
+	}));
+
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ }
 /******/ ]);

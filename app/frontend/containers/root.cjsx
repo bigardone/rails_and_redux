@@ -1,9 +1,7 @@
 { Provider } = require 'react-redux'
 configureStore = require '../store/configure_store'
-{ Router, RoutingContext, Route } = require 'react-router'
-AsyncApp = require './async_app'
-PeopleList = require '../components/people/list'
-Person = require '../components/people/person'
+{ Router, RoutingContext } = require 'react-router'
+routes = require '../routes'
 
 module.exports = React.createClass
   displayName: 'Root'
@@ -13,8 +11,7 @@ module.exports = React.createClass
       <RoutingContext {...@props.routingContext} />
     else
       <Router history={@props.routerHistory}>
-        <Route name="root" path="/" component={PeopleList} />
-        <Route name="person" path="people/:id" component={Person} />
+        {routes}
       </Router>
 
   render: ->

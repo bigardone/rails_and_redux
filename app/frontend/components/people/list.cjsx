@@ -40,12 +40,10 @@ List = React.createClass
     <div>
       <PeopleSearch totalCount={@props.meta.total_count} value={search} dispatch={dispatch} />
       <PaginatorSection totalPages={@props.meta.total_pages} currentPage={@props.meta.current_page} pageNumberClicked={@_fetchPeople}/>
-
       <div className="cards-wrapper">
         {@_renderPeople()}
       </div>
-
-      <PaginatorSection totalPages={@props.meta.total_pages} currentPage={@props.meta.current_page} pageNumberClicked={@_handlePageNumberClicked}/>
+      <PaginatorSection totalPages={@props.meta.total_pages} currentPage={@props.meta.current_page} pageNumberClicked={@_fetchPeople}/>
     </div>
 
 mapStateToProps = (state) ->

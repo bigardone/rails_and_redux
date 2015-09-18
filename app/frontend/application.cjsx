@@ -6,4 +6,4 @@ createBrowserHistory = require 'history/lib/createBrowserHistory'
 window.onload = ->
   store = configureStore()
 
-  ReactDOM.render <Root routerHistory={createBrowserHistory()} store={store}} />, document.getElementById 'people_list'
+  ReactDOM.render <Root routerHistory={createBrowserHistory()} store={store}} />, document.getElementById 'main_wrapper'
