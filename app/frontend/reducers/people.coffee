@@ -1,6 +1,3 @@
-merge = require 'lodash/object/merge'
-
-actions = require '../actions'
 { RECEIVE_PEOPLE } = require '../constants'
 
 initialState =
