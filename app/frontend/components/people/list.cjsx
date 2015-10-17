@@ -40,10 +40,7 @@ List = React.createClass
     </div>
 
 mapStateToProps = (state) ->
-  people: state.people.items
-  meta: state.people.meta
-  pageNumber: state.people.pageNumber
-  search: state.search.text
+  state.people
 
 module.exports = connect(mapStateToProps)(List)
 

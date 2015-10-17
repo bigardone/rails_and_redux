@@ -1,19 +1,23 @@
-{ RECEIVE_PEOPLE, REQUEST_PEOPLE } = require '../constants'
+constants = require '../constants'
 
 initialState =
-  items: null
+  people: null
   meta: {}
+  search: ''
   isLoading: false
   pageNumber: 1
 
 module.exports = (state = initialState, action) ->
   switch action.type
-    when REQUEST_PEOPLE
-      Object.assign {}, state, pageNumber: action.pageNumber
+    when constants.REQUEST_PEOPLE
+      Object.assign {}, state, pageNumber: action.pageNumber, search: action.search
 
-    when RECEIVE_PEOPLE
+    when constants.SET_SEARCH
+      Object.assign {}, state, search: action.search
+
+    when constants.RECEIVE_PEOPLE
       newState =
-        items: action.people
+        people: action.people
         meta: action.meta
         isLoading: false
 
