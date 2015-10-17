@@ -42,8 +42,8 @@ List = React.createClass
 mapStateToProps = (state) ->
   people: state.people.items
   meta: state.people.meta
+  pageNumber: state.people.pageNumber
   search: state.search.text
-  pageNumber: state.search.pageNumber
 
 module.exports = connect(mapStateToProps)(List)
 
