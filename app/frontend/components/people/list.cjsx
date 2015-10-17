@@ -1,7 +1,7 @@
 PeopleSearch = require './search'
 PersonCard = require './card'
 PaginatorSection = require '../paginator/paginator_section'
-ResetButton = require '../buttons/reset_button'
+NoResults = require './no_results'
 { connect } = require 'react-redux'
 actions = require '../../actions'
 
@@ -16,21 +16,14 @@ List = React.createClass
     dispatch actions.people.fetchPeople({search: search, page: pageNumber})
 
   _renderPeople: ->
-    if @props.people.length is 0 then return @_renderNoResultsFound()
+    if @props.people.length is 0 then return <NoResults dispatch={@props.dispatch} />
 
     @props.people.map (person) ->
       <PersonCard key={person.id} {...person}/>
 
-  _renderNoResultsFound: ->
-    { dispatch } = @props
-
-    <div className="warning">
-      <span className="fa-stack">
-        <i className="fa fa-meh-o fa-stack-2x"></i>
-      </span>
-      <h4>No people found...</h4>
-      <ResetButton text="Reset filter" styleClass="btn" dispatch={dispatch}/>
-    </div>
+  _handleSearchKeyup: (search) ->
+    { dispatch } = @props.
+    dispatch actions.people.setSearch search
 
   render: ->
     return false unless @props.people?
@@ -38,7 +31,7 @@ List = React.createClass
     { dispatch, search } = @props
 
     <div>
-      <PeopleSearch totalCount={@props.meta.total_count} value={search} dispatch={dispatch} />
+      <PeopleSearch search={@props.search} totalCount={@props.meta.total_count} dispatch={dispatch} onSearchKeyUp={@_handleSearchKeyup}/>
       <PaginatorSection totalPages={@props.meta.total_pages} currentPage={@props.meta.current_page} pageNumberClicked={@_fetchPeople}/>
       <div className="cards-wrapper">
         {@_renderPeople()}
@@ -49,7 +42,7 @@ List = React.createClass
 mapStateToProps = (state) ->
   people: state.people.items
   meta: state.people.meta
-  search: state.search.search
+  search: state.search.text
   pageNumber: state.search.pageNumber
 
 module.exports = connect(mapStateToProps)(List)

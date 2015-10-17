@@ -5,33 +5,19 @@ ReactDOM = require 'react-dom'
 module.exports = React.createClass
   displayName: 'PeopleSearch'
 
-  mixins: [
-    require 'react-addons-linked-state-mixin'
-  ]
-
-  getInitialState: ->
-    searchLength: 0
-    value: ''
-
-  componentWillReceiveProps: (nextProps) ->
-    @setState
-      value: nextProps.value
-      searchLength: if nextProps.value then nextProps.value.length else 0
-
   _handleOnSubmit: (e) ->
     e.preventDefault()
     { dispatch } = @props
     dispatch actions.people.fetchPeople(search: @refs.search.value.trim())
 
-  _handleSearchOnKeyup: (e) ->
-    @setState
-      searchLength: @refs.search.value.length
+  _handleOnChange: (e) ->
+    @props.onSearchKeyUp @refs.search.value
 
   _personText: (count) ->
     if count > 1 then 'people' else 'person'
 
   _renderResetButton: ->
-    return false unless @state.searchLength != 0
+    return false unless @props.search.length != 0
 
     { dispatch } = @props
     <ResetButton text="Reset filter" styleClass="reset" dispatch={dispatch} />
@@ -49,7 +35,7 @@ module.exports = React.createClass
       <div className="form-wrapper">
         <form onSubmit={@_handleOnSubmit}>
           {@_renderResetButton()}
-          <input ref="search" placeholder="Search people..." type="search" onKeyUp={@_handleSearchOnKeyup} valueLink={@linkState('value')}/>
+          <input ref="search" placeholder="Search people..." type="search" onChange={@_handleOnChange} value={@props.search}/>
         </form>
       </div>
     </div>

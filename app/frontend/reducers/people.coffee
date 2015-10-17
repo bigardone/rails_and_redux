@@ -11,8 +11,12 @@ initialState =
 module.exports = (state = initialState, action) ->
   switch action.type
     when RECEIVE_PEOPLE
-      items: action.people
-      meta: action.meta
-      isLoading: false
+      newState =
+        items: action.people
+        meta: action.meta
+        isLoading: false
+
+      Object.assign {}, state, newState
+
     else
       state

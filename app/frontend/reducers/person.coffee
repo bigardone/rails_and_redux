@@ -1,5 +1,3 @@
-merge = require 'lodash/object/merge'
-actions = require '../actions'
 { REQUEST_PERSON, RECEIVE_PERSON } = require '../constants'
 
 initialState =
@@ -9,8 +7,10 @@ initialState =
 module.exports = (state = initialState, action) ->
   switch action.type
     when REQUEST_PERSON
-      isLoading: true
+      Object.assign {}, state, isLoading: true
+
     when RECEIVE_PERSON
-      merge action.person, isLoading: false
+      Object.assign {}, state, action.person, isLoading: false
+
     else
       state

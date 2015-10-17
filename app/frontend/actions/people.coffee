@@ -1,5 +1,5 @@
 fetch = require 'isomorphic-fetch'
-{ REQUEST_PEOPLE, RECEIVE_PEOPLE } = require '../constants'
+{ REQUEST_PEOPLE, RECEIVE_PEOPLE, SET_SEARCH } = require '../constants'
 
 module.exports =
   requestPeople: (params) ->
@@ -21,3 +21,9 @@ module.exports =
     type: RECEIVE_PEOPLE
     people: json.people
     meta: json.meta
+
+  setSearch: (search) ->
+    (dispatch) =>
+      dispatch
+        type: SET_SEARCH
+        search: search
